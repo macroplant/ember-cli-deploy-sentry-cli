@@ -54,7 +54,7 @@ module.exports = {
 
       didDeploy() {
         const appName = this.readConfig('appName');
-        const releaseName = `${appName}@${this.readConfig('revisionKey')}`;
+        const releaseName = this.readConfig('releaseName') || `${appName}@${this.readConfig('revisionKey')}`;
         const environment = this.readConfig('environment');
 
         this.log('SENTRY: Deploying release...');
@@ -64,7 +64,7 @@ module.exports = {
 
       didFail() {
         const appName = this.readConfig('appName');
-        const releaseName = `${appName}@${this.readConfig('revisionKey')}`;
+        const releaseName = this.readConfig('releaseName') || `${appName}@${this.readConfig('revisionKey')}`;
 
         this.log('SENTRY: Deleting release...');
         this.sentryCliExec('releases', `delete ${releaseName}`);
