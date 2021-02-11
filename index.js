@@ -33,7 +33,7 @@ module.exports = {
       requiredConfig: ['appName', 'orgName', 'authToken'],
 
       didPrepare() {
-        const releaseName = `${this.readConfig('appName')}@${this.readConfig('revisionKey')}`;
+        const releaseName = this.readConfig('releaseName') || `${this.readConfig('appName')}@${this.readConfig('revisionKey')}`;
         const assetsDir = this.readConfig('assetsDir');
         const urlPrefix = this.readConfig('urlPrefix') ? `--url-prefix ${this.readConfig('urlPrefix')}` : '';
 
