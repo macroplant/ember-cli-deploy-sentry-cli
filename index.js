@@ -38,16 +38,16 @@ module.exports = {
         const urlPrefix = this.readConfig('urlPrefix') ? `--url-prefix ${this.readConfig('urlPrefix')}` : '';
 
         this.log('SENTRY: Creating release...');
-        this.sentryCliExec('releases', `new ${releaseName}`);
+        this.sentryCliExec('releases', `new "${releaseName}"`);
 
         this.log('SENTRY: Assigning commits...');
-        this.sentryCliExec('releases', `set-commits --auto ${releaseName}`);
+        this.sentryCliExec('releases', `set-commits --auto "${releaseName}"`);
 
         this.log('SENTRY: Uploading source maps...');
-        this.sentryCliExec('releases', `files ${releaseName} upload-sourcemaps --rewrite ${assetsDir} ${urlPrefix}`);
+        this.sentryCliExec('releases', `files "${releaseName}" upload-sourcemaps --rewrite ${assetsDir} ${urlPrefix}`);
 
         this.log('SENTRY: Finalizing release...');
-        this.sentryCliExec('releases', `finalize ${releaseName}`);
+        this.sentryCliExec('releases', `finalize "${releaseName}"`);
 
         this.log('SENTRY: Release published!...');
       },
@@ -58,7 +58,7 @@ module.exports = {
         const environment = this.readConfig('environment');
 
         this.log('SENTRY: Deploying release...');
-        this.sentryCliExec('releases', `deploys ${releaseName} new -e ${environment}`);
+        this.sentryCliExec('releases', `deploys "${releaseName}" new -e ${environment}`);
         this.log('SENTRY: Deployed!');
       },
 
@@ -67,7 +67,7 @@ module.exports = {
         const releaseName = this.readConfig('releaseName') || `${appName}@${this.readConfig('revisionKey')}`;
 
         this.log('SENTRY: Deleting release...');
-        this.sentryCliExec('releases', `delete ${releaseName}`);
+        this.sentryCliExec('releases', `delete "${releaseName}"`);
         this.log('SENTRY: Release deleted!');
       },
 
